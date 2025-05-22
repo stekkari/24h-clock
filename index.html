@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>24h Clock</title>
+	<link href="https://fonts.cdnfonts.com/css/digital-7-mono" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -19,35 +20,54 @@
         #clock {
             font-size: 15vw;
             font-weight: bold;
-            font-family: 'Digital-7', sans-serif;
+            font-family: 'Digital-7 Mono', sans-serif;
             text-shadow: 
-                0 0 5px yellow, 
-                0 0 10px yellow, 
-                0 0 20px yellow, 
-                0 0 40px yellow;
+                0 0 2px yellow, 
+                0 0 2px yellow, 
+                0 0 2px yellow, 
+                0 0 10px yellow;
+        }
+        #fullscreenBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: yellow;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px yellow;
         }
 
-        @font-face {
-            font-family: 'Digital-7';
-            src: url('https://fonts.cdnfonts.com/s/31338/Digital7.woff') format('woff');
+        #fullscreenBtn:hover {
+            background: #ffea00;
         }
     </style>
 </head>
 <body>
+	<button id="fullscreenBtn">⛶</button>
     <div id="clock">00:00:00</div>
-
     <script>
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+			document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
         }
-
         setInterval(updateClock, 1000);
-        updateClock(); // Call immediately to show the time without waiting
+        updateClock();
+		
+		const fsButton = document.getElementById('fullscreenBtn');
+        fsButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
     </script>
 </body>
 </html>
